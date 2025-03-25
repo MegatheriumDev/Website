@@ -77,7 +77,7 @@
         .game-logo {
             width: 100%;
             max-width: 1600px;
-            margin: 0 auto 40px;
+            margin: 40px auto 0; /* Changed margin to add space above instead of below */
         }
         
         .game-logo img {
@@ -143,14 +143,14 @@
         </div>
         
         <div class="hero-content">
-            <div class="game-logo">
-                <img src="FFLogoHQ.png" alt="Forest Floor Logo">
-            </div>
-            <!-- New buttons container with all three buttons -->
+            <!-- Buttons moved above the logo -->
             <div class="buttons-container">
                 <a href="https://www.youtube.com/" target="_blank" class="cta-button">Watch Trailer</a>
                 <a href="https://store.steampowered.com/app/YOUR_STEAM_ID/" target="_blank" class="cta-button">Wishlist on Steam</a>
                 <a href="javascript:void(0);" class="cta-button">Subscribe to Newsletter</a>
+            </div>
+            <div class="game-logo">
+                <img src="FFLogoHQ.png" alt="Forest Floor Logo">
             </div>
         </div>
     </section>
