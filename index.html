@@ -29,48 +29,6 @@
             padding: 20px;
         }
         
-        /* Header */
-        header {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-        }
-        
-        header.scrolled {
-            background-color: rgba(0, 0, 0, 0.95);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            text-decoration: none;
-        }
-        
-        .nav-links {
-            display: flex;
-            justify-content: flex-end;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 20px;
-        }
-        
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: #ff6b6b;
-        }
-        
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -244,11 +202,6 @@
                 padding-right: 0;
                 margin-bottom: 30px;
             }
-            
-            .nav-links {
-                justify-content: center;
-                margin-top: 20px;
-            }
         }
         
         /* Lightbox for screenshots */
@@ -284,18 +237,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#trailer">Trailer</a></li>
-                <li><a href="#screenshots">Screenshots</a></li>
-                <li><a href="https://store.steampowered.com/app/YOUR_STEAM_ID/" target="_blank">Steam</a></li>
-            </ul>
-        </div>
-    </header>
-
     <!-- Hero Section -->
     <section class="hero" style="background-image: url('SiteBackground.png');">
         <div class="hero-content">
@@ -365,16 +306,6 @@
     </div>
 
     <script>
-        // Sticky header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
