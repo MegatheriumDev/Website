@@ -108,6 +108,16 @@
             background-color: #ff5252;
         }
         
+        /* Added corner image styling */
+        .corner-image {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px; /* Adjust size as needed */
+            height: auto;
+            z-index: 3; /* Make sure it's above other elements */
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .game-logo {
@@ -123,6 +133,13 @@
             
             .cta-button {
                 margin-bottom: 10px;
+            }
+            
+            /* Make corner image smaller on mobile */
+            .corner-image {
+                width: 120px;
+                bottom: 10px;
+                right: 10px;
             }
         }
     </style>
@@ -153,6 +170,9 @@
                 <img src="FFLogoHQ.png" alt="Forest Floor Logo">
             </div>
         </div>
+        
+        <!-- Added corner image -->
+        <img src="MegatheriumStoneCircleSmall.png" alt="Megatherium Stone Circle" class="corner-image">
     </section>
 </body>
 </html>
