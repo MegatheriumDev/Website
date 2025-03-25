@@ -128,15 +128,19 @@
                 margin-bottom: 20px;
             }
             
-            /* Stack buttons vertically on small screens */
+            /* Create a 2x2 grid for buttons on mobile */
             .buttons-container {
-                flex-direction: column;
-                align-items: center;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 450px;
+                gap: 10px;
             }
             
             .cta-button {
-                margin-bottom: 10px;
-                width: 220px; /* Slightly wider on mobile for better touch targets */
+                margin-bottom: 0;
+                width: calc(50% - 5px); /* Take up half the container width minus half the gap */
+                min-width: 140px;
             }
             
             /* Make corner image smaller on mobile */
