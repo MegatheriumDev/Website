@@ -86,7 +86,7 @@
             display: block;
         }
         
-        /* Buttons container for all three buttons */
+        /* Buttons container for all buttons */
         .buttons-container {
             display: flex;
             justify-content: center;
@@ -103,6 +103,8 @@
             text-decoration: none;
             font-weight: bold;
             transition: background-color 0.3s ease;
+            width: 200px; /* Added fixed width for all buttons */
+            text-align: center; /* Ensure text is centered in the button */
         }
         
         .cta-button:hover {
@@ -134,6 +136,7 @@
             
             .cta-button {
                 margin-bottom: 10px;
+                width: 220px; /* Slightly wider on mobile for better touch targets */
             }
             
             /* Make corner image smaller on mobile */
@@ -166,6 +169,7 @@
                 <a href="https://www.youtube.com/" target="_blank" class="cta-button">Watch Trailer</a>
                 <a href="https://store.steampowered.com/app/YOUR_STEAM_ID/" target="_blank" class="cta-button">Wishlist on Steam</a>
                 <a href="javascript:void(0);" class="cta-button">Subscribe to Newsletter</a>
+                <a href="javascript:void(0);" class="cta-button">Press Kit</a>
             </div>
             <div class="game-logo">
                 <img src="FFLogoHQDrop.png" alt="Forest Floor Logo">
