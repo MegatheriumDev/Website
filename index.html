@@ -71,13 +71,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 40px;
+            padding-top: 20px; /* Reduced padding-top to move content up */
         }
         
         .game-logo {
             width: 100%;
             max-width: 1600px;
-            margin: 1px auto 0; /* Changed margin to add space above instead of below */
+            margin: 0 auto; /* Removed margin-top */
         }
         
         .game-logo img {
@@ -86,12 +86,12 @@
             display: block;
         }
         
-        /* Buttons container for all buttons */
+        /* Buttons container for all buttons - now below logo */
         .buttons-container {
             display: flex;
             justify-content: center;
             gap: 25px; /* Spacing between buttons */
-            padding-top: 55px; /* This pushes the buttons down */
+            padding-top: 25px; /* Reduced padding to position closer to logo */
         }
         
      .cta-button {
@@ -169,15 +169,15 @@
         </div>
         
         <div class="hero-content">
-            <!-- Buttons moved above the logo -->
+            <!-- Logo first, then buttons below -->
+            <div class="game-logo">
+                <img src="FFLogoHQ.png" alt="Forest Floor Logo">
+            </div>
             <div class="buttons-container">
                 <a href="https://www.youtube.com/" target="_blank" class="cta-button">Watch Trailer</a>
                 <a href="https://store.steampowered.com/app/YOUR_STEAM_ID/" target="_blank" class="cta-button">Wishlist on Steam</a>
                 <a href="javascript:void(0);" class="cta-button">Playtesting</a>
                 <a href="javascript:void(0);" class="cta-button">Press Kit</a>
-            </div>
-            <div class="game-logo">
-                <img src="FFLogoHQ.png" alt="Forest Floor Logo">
             </div>
         </div>
         
