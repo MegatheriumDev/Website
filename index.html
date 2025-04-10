@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forest Floor</title>
-    <link rel="icon" type="image/png" href="favicon.png"> 
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
         /* Basic reset */
         * {
@@ -12,17 +12,18 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #eee;
             background-color: #121212;
             max-width: 100%;
-            overflow: hidden; /* Prevent scrolling */
-            height: 100vh; /* Fixed height */
+            /* Allow scrolling if popup content is too long, but keep main page fixed */
+            /* overflow: hidden; */
+            /* height: 100vh; */
         }
-        
+
         /* Hero Section - Now full page */
         .hero {
             height: 100vh;
@@ -32,8 +33,9 @@
             justify-content: center;
             text-align: center;
             position: relative;
+            overflow: hidden; /* Keep video contained */
         }
-        
+
         /* Video Background Styling */
         .video-background {
             position: absolute;
@@ -42,8 +44,9 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            z-index: 1; /* Ensure video is behind content */
         }
-        
+
         .video-background video {
             min-width: 100%;
             min-height: 100%;
@@ -53,9 +56,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            object-fit: cover; /* This ensures the video covers the container */
+            object-fit: cover;
         }
-        
+
         /* Video overlay class kept but not used in HTML */
         .video-overlay {
             position: absolute;
@@ -64,29 +67,30 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.3); /* Adjust opacity as needed */
+            z-index: 2; /* Above video */
         }
-        
+
         .hero-content {
             position: relative;
-            z-index: 2; /* Increased z-index to appear above video */
+            z-index: 3; /* Increased z-index to appear above video/overlay */
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-top: 45px; /* Reduced padding-top to move content up */
         }
-        
+
         .game-logo {
             width: 100%;
             max-width: 1300px;
             margin: 0 auto; /* Removed margin-top */
         }
-        
+
         .game-logo img {
             width: 100%;
             height: auto;
             display: block;
         }
-        
+
         /* Buttons container for all buttons - now below logo */
         .buttons-container {
             display: flex;
@@ -94,25 +98,26 @@
             gap: 25px; /* Spacing between buttons */
             padding-top: 45px; /* Reduced padding to position closer to logo */
         }
-        
-     .cta-button {
-        display: inline-block;
-        background-color: #34377d;
-        color: #f5f3e6;
-        padding: 6px 8px;
-        border-radius: 5px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        width: 190px;
-        text-align: center;
-        border: 1px solid #cccccc;
-    }
 
-    .cta-button:hover {
-        background-color: #22234f;
-    }
-        
+        .cta-button {
+            display: inline-block;
+            background-color: #34377d;
+            color: #f5f3e6;
+            padding: 6px 8px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 190px;
+            text-align: center;
+            border: 1px solid #cccccc;
+            cursor: pointer; /* Add cursor pointer for better UX */
+        }
+
+        .cta-button:hover {
+            background-color: #22234f;
+        }
+
         /* Added corner image styling */
         .corner-image {
             position: absolute;
@@ -122,14 +127,14 @@
             height: auto;
             z-index: 3; /* Make sure it's above other elements */
         }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .game-logo {
                 max-width: 90%;
                 margin-bottom: 20px;
             }
-            
+
             /* Create a 2x2 grid for buttons on mobile */
             .buttons-container {
                 flex-direction: row;
@@ -138,13 +143,13 @@
                 max-width: 450px;
                 gap: 25px;
             }
-            
+
             .cta-button {
                 margin-bottom: 0;
                 width: calc(50% - 12.5px); /* Take up half the container width minus half the gap of 25px */
                 min-width: 140px;
             }
-            
+
             /* Make corner image smaller on mobile */
             .corner-image {
                 width: 120px;
@@ -152,7 +157,92 @@
                 right: 10px;
             }
         }
+
+        /* --- START: Styles for MailerLite Popup --- */
+        #mailerlite-popup-overlay {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+            z-index: 999; /* Ensure it's above everything else */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+        }
+
+        #mailerlite-popup-container {
+            position: relative; /* Needed for close button positioning */
+            /* Let the MailerLite form define its own width/max-width */
+            /* The MailerLite CSS already styles #mlb2-24701027 */
+             background-color: #f6f6f6; /* Match Mailerlite background or choose your own */
+             border-radius: 5px; /* Optional rounding */
+             box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Optional shadow */
+             max-height: 90vh; /* Prevent popup being too tall */
+             overflow-y: auto; /* Allow scrolling within popup if needed */
+        }
+
+        #mailerlite-popup-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: #555; /* Adjust color */
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            z-index: 1001; /* Above the form content */
+        }
+         #mailerlite-popup-close:hover {
+            color: #000;
+         }
+
+        /* --- END: Styles for MailerLite Popup --- */
+
     </style>
+
+    <!-- START: MailerLite Form Styles -->
+    <style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1744283");</style>
+    <style type="text/css">
+        /* LOADER */
+        .ml-form-embedSubmitLoad { display: inline-block; width: 20px; height: 20px; }
+        .g-recaptcha { transform: scale(1); -webkit-transform: scale(1); transform-origin: 0 0; -webkit-transform-origin: 0 0; height: ; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+        .ml-form-embedSubmitLoad:after { content: " "; display: block; width: 11px; height: 11px; margin: 1px; border-radius: 50%; border: 4px solid #fff; border-color: #ffffff #ffffff #ffffff transparent; animation: ml-form-embedSubmitLoad 1.2s linear infinite; }
+        @keyframes ml-form-embedSubmitLoad { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* --- Styles for Form ID mlb2-24701027 --- */
+        /* (Your extensive MailerLite CSS goes here - I've truncated it for brevity) */
+        #mlb2-24701027.ml-form-embedContainer { box-sizing: border-box; /* ... keep all your mailerlite styles ... */ width: 100% !important; }
+        #mlb2-24701027.ml-form-embedContainer .ml-form-embedWrapper { background-color: #f6f6f6; border-width: 0px; border-color: transparent; border-radius: 4px; border-style: solid; box-sizing: border-box; display: inline-block !important; margin: 0; padding: 0; position: relative; }
+        #mlb2-24701027.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
+        #mlb2-24701027.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { width: 400px; }
+         /* ... rest of your MailerLite styles ... */
+
+        /* Ensure MailerLite form fits our container */
+        #mailerlite-popup-container .ml-form-embedContainer {
+            margin: 0 !important; /* Override MailerLite's auto margin */
+            display: block !important; /* Ensure it takes block display */
+        }
+        #mailerlite-popup-container .ml-form-align-center {
+             display: block !important; /* Override table display */
+        }
+         /* Ensure the inner wrapper takes available space, remove fixed width */
+        #mailerlite-popup-container .ml-form-embedWrapper.embedForm {
+             max-width: 100% !important;
+             width: 100% !important;
+        }
+
+
+        /* Adjust close button if MailerLite has one */
+        /* .ml-subscribe-close { display: none; } /* Uncomment this if you want to hide MailerLite's default close button and use only yours */
+
+    </style>
+    <!-- END: MailerLite Form Styles -->
+
 </head>
 <body>
     <!-- Hero Section with Video Background -->
@@ -161,14 +251,10 @@
         <div class="video-background">
             <video autoplay loop muted playsinline poster="InitialFrame.jpg">
                 <source src="ClipLoop.mp4" type="video/mp4">
-                <!-- You can add fallback formats if needed -->
-                <!-- <source src="ForestFloorBackground.webm" type="video/webm"> -->
-                <!-- Fallback to static image if video doesn't load -->
                 Your browser does not support the video tag. Please update your browser.
             </video>
-            <!-- Overlay div removed -->
         </div>
-        
+
         <div class="hero-content">
             <!-- Logo first, then buttons below -->
             <div class="game-logo">
@@ -177,13 +263,131 @@
             <div class="buttons-container">
                 <a href="https://www.youtube.com/" target="_blank" class="cta-button">WATCH TRAILER</a>
                 <a href="https://store.steampowered.com/app/YOUR_STEAM_ID/" target="_blank" class="cta-button">WISHLIST ON STEAM</a>
-                <a href="javascript:void(0);" class="cta-button">PLAYTESTING</a>
+                <!-- Added an ID to the Playtesting button -->
+                <a href="#" id="playtest-button" class="cta-button">PLAYTESTING</a>
                 <a href="javascript:void(0);" class="cta-button">PRESS KIT</a>
             </div>
         </div>
-        
+
         <!-- Added corner image -->
         <img src="MegatheriumStoneCircleSmall.png" alt="Megatherium Stone Circle" class="corner-image">
     </section>
+
+    <!-- START: MailerLite Popup Structure -->
+    <div id="mailerlite-popup-overlay">
+        <div id="mailerlite-popup-container">
+            <button id="mailerlite-popup-close" title="Close">×</button>
+            <!-- MailerLite Form HTML Goes Here -->
+            <div id="mlb2-24701027" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-24701027">
+                <div class="ml-form-align-center ">
+                  <div class="ml-form-embedWrapper embedForm">
+                    <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+                      <div class="ml-form-embedContent" style=" ">
+                          <h4></h4>
+                          <p>If you're interested in playtesting or major updates to Forest Floor, enter your email below</p>
+                      </div>
+                      <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1444768/forms/151319328907593401/subscribe" data-code="" method="post" target="_blank">
+                        <div class="ml-form-formContent">
+                          <div class="ml-form-fieldRow ml-last-item">
+                            <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                              <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                            </div>
+                          </div>
+                        </div>
+                        <input type="hidden" name="ml-submit" value="1">
+                        <div class="ml-form-embedSubmit">
+                          <button type="submit" class="primary">Subscribe</button>
+                          <button disabled="disabled" style="display: none;" type="button" class="loading">
+                            <div class="ml-form-embedSubmitLoad"></div>
+                            <span class="sr-only">Loading...</span>
+                          </button>
+                        </div>
+                        <input type="hidden" name="anticsrf" value="true">
+                      </form>
+                    </div>
+                    <div class="ml-form-successBody row-success" style="display: none">
+                      <div class="ml-form-successContent">
+                          <h4>Thank you!</h4>
+                          <p>You have successfully joined our subscriber list.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- End MailerLite Form HTML -->
+        </div>
+    </div>
+    <!-- END: MailerLite Popup Structure -->
+
+
+    <!-- START: MailerLite Scripts (Place before closing </body>) -->
+    <script>
+        function ml_webform_success_24701027() {
+          var $ = ml_jQuery || jQuery; // Check if MailerLite loaded jQuery
+          // Show success message inside the popup
+          $('#mlb2-24701027 .row-success').show();
+          $('#mlb2-24701027 .row-form').hide();
+
+          // Optional: Close popup after a delay
+          // setTimeout(closeMailerlitePopup, 3000); // Close after 3 seconds
+        }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        // This fetch seems important for MailerLite, keep it.
+        fetch("https://assets.mailerlite.com/jsonp/1444768/forms/151319328907593401/takel");
+
+        // --- Popup Trigger Logic ---
+        const playtestButton = document.getElementById('playtest-button');
+        const popupOverlay = document.getElementById('mailerlite-popup-overlay');
+        const popupCloseButton = document.getElementById('mailerlite-popup-close');
+        const popupContainer = document.getElementById('mailerlite-popup-container'); // Get the container
+
+        function showMailerlitePopup() {
+            popupOverlay.style.display = 'flex'; // Use flex to enable centering
+             // Reset form state (optional, hides success message if previously shown)
+            const formContent = document.querySelector('#mlb2-24701027 .row-form');
+            const successContent = document.querySelector('#mlb2-24701027 .row-success');
+            if (formContent && successContent) {
+                formContent.style.display = 'block'; // Or whatever its default is
+                successContent.style.display = 'none';
+            }
+             // Clear email field (optional)
+             const emailInput = document.querySelector('#mlb2-24701027 input[name="fields[email]"]');
+             if (emailInput) {
+                 emailInput.value = '';
+             }
+
+        }
+
+        function closeMailerlitePopup() {
+            popupOverlay.style.display = 'none';
+        }
+
+        playtestButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            showMailerlitePopup();
+        });
+
+        popupCloseButton.addEventListener('click', closeMailerlitePopup);
+
+        // Close popup if user clicks on the overlay (outside the form container)
+        popupOverlay.addEventListener('click', function(event) {
+            // Check if the click was directly on the overlay, not on its children (the popup container)
+            if (event.target === popupOverlay) {
+                 closeMailerlitePopup();
+            }
+        });
+
+         // Optional: Close popup with the Escape key
+         document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && popupOverlay.style.display === 'flex') {
+                closeMailerlitePopup();
+            }
+         });
+
+    </script>
+    <!-- END: MailerLite Scripts -->
+
 </body>
 </html>
